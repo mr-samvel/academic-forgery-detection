@@ -1,0 +1,58 @@
+% ----------------------------------------------------------
+\chapter{Introdução}
+% ----------------------------------------------------------
+
+%As orientações aqui apresentadas são baseadas em um conjunto de normas elaboradas pela \gls{ABNT}. Além das normas técnicas, a Biblioteca também elaborou uma série de tutoriais, guias, \textit{templates} os quais estão disponíveis em seu site, no endereço \url{http://portal.bu.ufsc.br/normalizacao/}.
+
+%Paralelamente ao uso deste \textit{template} recomenda-se que seja utilizado o \textbf{Tutorial de Trabalhos Acadêmicos} (disponível neste link \url{https://repositorio.ufsc.br/handle/123456789/180829}) e/ou que o discente \textbf{participe das capacitações oferecidas da Biblioteca Universitária da UFSC}.
+
+%Este \textit{template} está configurado apenas para a impressão utilizando o anverso das folhas, caso você queira imprimir usando a frente e o verso, acrescente a opção \textit{openright} e mude de \textit{oneside} para \textit{twoside} nas configurações da classe \textit{abntex2} no início do arquivo principal \textit{main.tex} \cite{abntex2classe}.
+
+%Os trabalhos de conclusão de curso (TCC) de graduação e de especialização não são entregues em formato impresso na Biblioteca Universitária. Porém, sua versão PDF pode ser disponibilizada no Repositório Institucional, consulte seu curso sobre os procedimentos adotados para a entrega. 
+
+%\nocite{NBR6023:2002}
+%\nocite{NBR6027:2012}
+%\nocite{NBR6028:2003}
+%\nocite{NBR10520:2002}
+
+% ----------------------------------------------------------
+%\section{Recomendações de uso}
+% ----------------------------------------------------------
+
+%Este \emph{template} foi elaborado para se compilado em \LaTeX utilizando \abnTeX.  Todas as configurações de diferenciação gráfica nas divisões de seção e subseção seguem a  norma NBR 6027/2012 automaticamente. 
+
+%Uma nota de rodapé, já tem seu estilo automático com o comando \texttt{$\backslash$footnote}\footnote{As notas de rodapé possuem fonte tamanho 10. O alinhamento das linhas da nota de rodapé deve ser abaixo da primeira letra da primeira palavra da nota de modo dar destaque ao expoente.}.
+
+No Brasil, entre 2013 e 2023, o número de matrículas de alunos na educação superior aumentou 36,2\%, com uma média de crescimento anual de 3,2\%. O número de concluintes acompanhou essa mesma tendência de crescimento, sendo que o ano de 2013 registrou cerca de 992 mil graduandos, enquanto 2023 terminou com mais de 1,3 milhões. Para acomodar essa demanda, existem 2580 instituições de ensino superior no país \cite{inep}, das quais 87,8\% são privadas. Essas estatísticas revelam um saldo extremamente positivo, mas também trazem à tona desafios que precisam ser superados.
+
+Atualmente, a gerência, armazenamento e cuidado de documentos acadêmicos, como diplomas e históricos escolares, é responsabilidade da instituição de ensino que os emitem \cite{mec}, além disso o próprio processo para a emissão desses documentos é burocrático, não computadorizado e sujeito a erros ou até mesmo fraudes, já que a validação desses atestados não possuem transparência ou redundância \cite{smartcontracts}. Assim, a falta de modernização desses procedimentos deixam brechas que são conhecidas e utilizadas por instituições mal intencionadas — não é difícil encontrar portais de venda de diplomas falsos \cite{noticiadiploma}.
+
+O comércio clandestino de diplomas falsos oferece certificados em diversas áreas e níveis, desde medicina até direito; desde a graduação até o doutorado, por valores que podem chegar a R\$100.000, tornando essa prática altamente lucrativa e atraente para fraudadores \cite{smartcontracts}. Investigações recentes demonstram que quadrilhas estruturadas conseguem emitir dezenas de milhares de documentos forjados, comercializados em sites especializados, com suposta publicação em diários oficiais \cite{noticiadiploma2}. Para além da corrupção, esse tipo de fraude compromete a confiança pública nas instituições de ensino e no mercado de trabalho: indivíduos sem qualificação adequada podem assumir funções críticas, enquanto diplomas legítimos perdem valor diante da insegurança sobre sua autenticidade \cite{clusterfraudverification}.
+
+Neste cenário, o Ministério da Educação do Brasil (MEC), em parceria com o Ministério da Economia, disponibiliza e desenvolve o sistema da Jornada do Estudante junto a Universidade Federal de Santa Catarina (por meio do Laboratório Bridge e do Laboratório de Segurança em Computação), a Universidade Tecnológica Federal do Paraná e a Universidade Federal de Mato Grosso do Sul \cite{jornada}. Este sistema permite que estudantes acompanhem seus dados estudantis e disponibiliza documentos acadêmicos pertinentes à sua trajetória. Além disso, também existe uma iniciativa para que se torne uma plataforma conjunta para a emissão, além do registro, destes certificados, unificando diplomas, históricos escolares, currículos e até mesmo dados regulatórios das instituições de ensino superior \cite{videojornada}.
+
+Para armazenar estes dados, o sistema da Jornada do Estudante utiliza uma \textit{blockchain Hyperledger Fabric}, que aproveita características como rastreabilidade às emissões e descentralização da posse e imutabilidade dos registros. O projeto realiza o processamento dos dados em rede através de \textit{smart contracts} e baseia-se em gestão de identidade forte, com certificados digitais que servem como base da identidade, de forma que somente entidades reconhecidas pelo projeto possam efetuar transações \cite{smartcontracts,videojornada}.
+
+Ainda assim, hoje, a Jornada do Estudante não elimina o risco do registro de documentos falsificados, mas seu arcabouço permite o desenvolvimento de uma solução para este desafio. O presente Trabalho de Conclusão de Curso (TCC) trata da implementação e validação de um protótipo de \textit{software} de inteligência artificial capaz de apontar documentos falsos antes de sua inserção neste ambiente. O algoritmo será baseado em uma abordagem híbrida de aprendizado de máquina não-supervisionado, que combina análise multimodal e técnicas de detecção de anomalias. Busca-se rotular documentos com base em um nível de probabilidade de fraudulência, para isso, utilizam-se extrações de características visuais (como textura, fonte, espaçamento, selos e assinaturas), textuais (como padrões linguísticos, formatação de números e distribuição de termos) e estruturais (como posição de campos, margens e tabelas), que serão refinadas conforme realização do TCC. Combinando essas \textit{features} multidimensionais, é possível realizar o agrupamento dos documentos em \textit{clusters} que representam padrões dominantes normais. Em sequência, modelos de detecção de anomalias são utilizados para a criação de detectores de referência a partir dos \textit{clusters}, possibilitando a classificação de um novo documento submetido, em tempo real, através da avaliação do grau de desvio em relação aos padrões aprendidos — quanto maior o desvio e escore de anomalia, maior a probabilidade de que o documento seja falsificado. Finalmente, essa pontuação é mapeada para categorias discretas de suspeita, fornecendo um nível de probabilidade de fraude para cada inserção.
+
+Ao integrar essa tecnologia à Jornada do Estudante, espera-se aprimorar o processo de registro e emissão de documentos acadêmicos no Brasil, apontando, em tempo real, a tentativa de inserção de um certificado fraudado na base de dados, garantindo segurança e confiabilidade a estes procedimentos.
+
+\section{Objetivos}
+
+Esta seção apresenta o objetivo geral e objetivos específicos deste trabalho.
+
+\subsection{Objetivo Geral}
+
+O objetivo geral deste trabalho é desenvolver e integrar ao projeto da Jornada do Estudante um protótipo de software que categorize, com determinado nível de acurácia, certos documentos acadêmicos, como diplomas, históricos escolares e matrizes curriculares, por grau de probabilidade de fraudulência.
+
+\subsection{Objetivos Específicos}
+
+Para atingir o objetivo geral, os seguintes objetivos específicos devem ser cumpridos:
+
+\begin{itemize}
+    \item Obter uma base de documentos acadêmicos para o treinamento e validação do \textit{software};
+    \item Conforme necessário, projetar e desenvolver sistema para pré-processamento dos documentos, aplicando OCR e normalização dos documentos digitalizados para uniformizar formatos e qualidade;
+    \item Projetar e desenvolver sistema para extração de características multimodais (visuais, textuais e estruturais);
+    \item Projetar e desenvolver sistema para agrupamento dos documentos com base nas \textit{features} extraídas, criando referenciais de comportamento padrão;
+    \item Projetar e desenvolver sistema de detectores de anomalias que calculem escores de suspeita com base em métricas de similaridade adaptadas aos \textit{clusters} e mapeá‑los em categorias discretas de probabilidade de fraude;
+\end{itemize}

@@ -1,0 +1,353 @@
+% ------------------------------------------------------------------------
+% ------------------------------------------------------------------------
+% Modelo UFSC para Trabalhos Academicos (tese de doutorado, dissertação de
+% mestrado) utilizando a classe abntex2
+%
+% Autor: Alisson Lopes Furlani
+% 	Modificações:
+%	- 27/08/2019: Alisson L. Furlani, add pacote 'glossaries' para listas
+%   - 06/11/2019: Luiz-Rafael Santos, modifica para Trabalho de Conclusão de Curso
+% ------------------------------------------------------------------------
+% ------------------------------------------------------------------------
+
+\documentclass[
+	% -- opções da classe memoir --
+	12pt,				% tamanho da fonte
+	%openright,			% capítulos começam em pág ímpar (insere página vazia caso preciso)
+	oneside,			% para impressão no anverso. Oposto a twoside
+	a4paper,			% tamanho do papel. 
+	% -- opções da classe abntex2 --
+	chapter=TITLE,		% títulos de capítulos convertidos em letras maiúsculas
+	section=TITLE,		% títulos de seções convertidos em letras maiúsculas
+	%subsection=TITLE,	% títulos de subseções convertidos em letras maiúsculas
+	%subsubsection=TITLE,% títulos de subsubseções convertidos em letras maiúsculas
+	% -- opções do pacote babel --
+	%english,			% idioma adicional para hifenização
+	%french,				% idioma adicional para hifenização
+	%spanish,			% idioma adicional para hifenização
+	brazil				% o último idioma é o principal do documento
+	]{abntex2}
+
+\usepackage{setup/ufscthesisA4-alf}
+\usepackage{amssymb}
+
+% ---
+% Filtering and Mapping Bibliographies
+% ---
+% Pacotes de citações
+% ---
+\usepackage{csquotes}
+\usepackage[backend = biber, style = abnt]{biblatex}
+% FIXME Se desejar estilo numérico de citações,  comente a linha acima e descomente a linha a seguir.
+% \usepackage[backend = biber, style = numeric-comp]{biblatex}
+
+
+%\usepackage{color} %permite o uso de cores no documento
+%\usepackage[table]{xcolor}
+%\usepackage{framed} %%allows to use background color in the table box
+
+
+% Pacotes usados especificamente neste documento
+\usepackage{graphicx} % Possibilita o uso de figuras e gráficos
+\usepackage{color}    % Possibilita o uso de cores no documento
+\usepackage{listings}
+\usepackage{multirow}
+\usepackage{tabularx}
+\usepackage[table]{xcolor}
+\usepackage{colortbl}
+\usepackage{framed}
+\usepackage{float}
+%\usepackage{footnote}
+%\makesavenoteenv{tabular}
+%\makesavenoteenv{table}
+%\usepackage[printonlyused, withpage]{acronym}
+\usepackage{pdfpages}
+\usepackage{afterpage}
+\usepackage{hhline}
+\usepackage{enumitem}
+\usepackage{latexsym}
+\usepackage{svg}
+\usepackage{amsmath}
+\usepackage{multirow}
+%\usepackage{bm}
+%\usepackage{amssymb}
+\usepackage[lined,boxed,ruled,commentsnumbered,portuguese]{algorithm2e}
+
+\usepackage{lipsum}
+
+\definecolor{shadecolor}{rgb}{0.8,0.8,0.8}
+
+\setlength\bibitemsep{\baselineskip}
+\DeclareFieldFormat{url}{Disponível~em:\addspace\url{#1}}
+\NewBibliographyString{sineloco}
+\NewBibliographyString{sinenomine}
+\DefineBibliographyStrings{brazil}{%
+	sineloco     = {\mkbibemph{S\adddot l\adddot}},
+	sinenomine   = {\mkbibemph{s\adddot n\adddot}},
+	andothers    = {\mkbibemph{et\addabbrvspace al\adddot}},
+	in			 = {\mkbibemph{In:}}
+}
+
+\addbibresource{aftertext/references.bib} % Seus arquivos de referências
+
+% ---
+\DeclareSourcemap{
+	\maps[datatype=bibtex]{
+		% remove fields that are always useless
+		\map{
+			\step[fieldset=abstract, null]
+			\step[fieldset=pagetotal, null]
+		}
+		% remove URLs for types that are primarily printed
+%		\map{
+%			\pernottype{software}
+%			\pernottype{online}
+%			\pernottype{report}
+%			\pernottype{techreport}
+%			\pernottype{standard}
+%			\pernottype{manual}
+%			\pernottype{misc}
+%			\step[fieldset=url, null]
+%			\step[fieldset=urldate, null]
+%		}
+		\map{
+			\pertype{inproceedings}
+			% remove mostly redundant conference information
+			\step[fieldset=venue, null]
+			\step[fieldset=eventdate, null]
+			\step[fieldset=eventtitle, null]
+			% do not show ISBN for proceedings
+			\step[fieldset=isbn, null]
+			% Citavi bug
+			\step[fieldset=volume, null]
+		}
+	}
+}
+% ---
+
+% ---
+% Informações de dados para CAPA e FOLHA DE ROSTO
+% ---
+% FIXME Substituir 'Nome completo do autor' pelo seu nome.
+\autor{Samuel Moreira Ransolin}
+% FIXME Substituir 'Título do trabalho' pelo título da trabalho.
+\titulo{Detecção de Documentos Acadêmicos Falsificados: Uma Solução Baseada em Aprendizado de Máquina}%Circuit optimization with routing with Cell movement %using the OpenROAD project infrastructure }
+% FIXME Substituir 'Subtítulo (se houver)' pelo subtítulo da trabalho.  
+% Caso não tenha substítulo, comente a linha a seguir.
+%\subtitulo{Subtítulo (se houver)}
+% FIXME Substituir 'XXXXXX' pelo nome do seu
+% orientador.
+% \orientador{XXXXXXX, Dr.}
+% FIXME Se for orientado por uma mulher, comente a linha acima e descomente a linha a seguir.
+\orientador[Orientadora]{Giovana Nunes Inocêncio, M.a.}
+% FIXME Substituir 'XXXXXX' pelo nome do seu
+% coorientador. Caso não tenha coorientador, comente a linha a seguir.
+\coorientador[Coorientador]{Prof. Jean Everson Martina, Dr.}
+% FIXME Se for coorientado por uma mulher, comente a linha acima e descomente a linha a seguir.
+\coorientador{}
+% FIXME Substituir 'XXXXXX' pelo nome do Coordenador do 
+% programa/curso.
+\coordenador{Profa. Lúcia Helena Martins Pacheco, Dr.}
+% FIXME Se for coordenadora mulher, comente a linha acima e descomente a linha a seguir.
+\bancaa{Giovana Nunes Inocêncio, M.a.}
+\bancab{Prof. Jean Everson Martina, Dr.}
+%\formacao{Engenheira de Controle e Automação}
+\bancac{Lucas Machado da Palma, M.e.} %Primeiro membro da banca (normalmente o orientador).
+\bancad{Gabriel Estevam de Oliveira, M.e.} %Segundo membro da banca
+% \coordenador[Coordenadora]{Nome da Coordenadora, Dra.}
+% FIXME Substituir '[ano da entrega]' pelo ano (ano) em que seu trabalho foi defendido.
+\ano{2025}
+% FIXME Substituir '[dia] de [mês] de [ano]' pela data em que ocorreu sua defesa.
+\data{[11] de [12] de [2025]}
+% FIXME Substituir '[Cidade da defesa]' pela cidade em que ocorreu sua defesa.
+\local{Florianópolis}
+\instituicaosigla{UFSC}
+\instituicao{Universidade Federal de Santa Catarina}
+% FIXME Substituir 'Dissertação/Tese' pelo tipo de trabalho (Tese, Dissertação). 
+\tipotrabalho{Relatório de Trabalho de Conclusão de Curso 1}
+% FIXME Substituir '[licenciado/bacharel] em [nome do título obtido]' pela grau adequado.
+\formacao{Bacharel em Ciências da Computação}
+% FIXME Substituir '[licenciado/bacharel]' pelo nivel adequado.
+\nivel{Bacharel}
+% FIXME Substituir 'Curso de Graduação em [XXXXXXXX]' pela curso adequado.
+\programa{Curso de Graduação em Ciências da Computação}
+% FIXME Substituir 'Campus XXXXXX ou Centro de XXXXXX' pelo campus ou centro adequado.
+\centro{Centro Tecnológico}
+\preambulo
+{%
+\imprimirtipotrabalho~do~\imprimirprograma~do~\imprimircentro~da~\imprimirinstituicao~para~a~obtenção~do~título~de~\imprimirformacao.
+}
+% ---
+
+% ---
+% Configurações de aparência do PDF final
+% ---
+% alterando o aspecto da cor azul
+\definecolor{blue}{RGB}{41,5,195}
+% informações do PDF
+\makeatletter
+\hypersetup{
+     	%pagebackref=true,
+		pdftitle={\@title}, 
+		pdfauthor={\@author},
+    	pdfsubject={\imprimirpreambulo},
+	    pdfcreator={LaTeX with abnTeX2},
+		pdfkeywords={ufsc, latex, abntex2}, 
+		colorlinks=true,       		% false: boxed links; true: colored links
+    	linkcolor=black,%blue,          	% color of internal links
+    	citecolor=black,%blue,        		% color of links to bibliography
+    	filecolor=black,%magenta,      		% color of file links
+		urlcolor=black,%blue,
+		bookmarksdepth=4
+}
+\makeatother
+% ---
+
+% ---
+% compila a lista de abreviaturas e siglas e a lista de símbolos
+% ---
+
+% Declaração das siglas
+% \siglalista{VLSI}{\textit{Very Large-Scale Integrated}}
+% \siglalista{GRT}{\textit{Global Routing}}
+% \siglalista{EDA}{\textit{Electronic Design Automation}}
+% \siglalista{HDL}{\textit{Hardware Description Language}}
+% \siglalista{RTL}{\textit{Register Transfer Level}}
+% \siglalista{IC}{\textit{Integrated Circuit}}
+% \siglalista{CAD}{\textit{Computer-Aided Design}}
+% \siglalista{TCC}{\textit{Trabalho de Conclusão de Curso}}
+% \siglalista{RCM}{\textit{Routing with Cell Movement}}
+% \siglalista{DT}{\textit{Decision Trees}}
+% \siglalista{NN}{\textit{Neural Network}}
+% \siglalista{RMSE}{\textit{Root-Mean-Square Error}}
+% \siglalista{R-squared}{\textit{Coefficient of determination}}
+% \siglalista{DNN}{\textit{Deep Neural Network}}
+% \siglalista{ASIC}{\textit{Application Specific Integrated Circuit}}
+% \siglalista{ER}{\textit{Error Rate}}
+% \siglalista{ED}{\textit{Error Distance}}
+% \siglalista{PCB}{\textit{Printed Circuit Boards}}
+% \siglalista{HPWL}{\textit{Half Perimeter Wirelength}}
+% \siglalista{IP}{\textit{Intellectual Property}}
+% \siglalista{MPSoC}{\textit{Multiprocessor System-on-Chip}}
+% Declaração dos simbolos
+% \simbololista{ci}{\ensuremath{c_i}}
+% {Célula i}
+% \simbololista{R}{\ensuremath{R}}{Conjunto das redes}
+% \simbololista{Rci}{\ensuremath{R(c_i)}}{Conjunto das redes conectados à célula i}
+% \simbololista{rk}{\ensuremath{r_k}}
+% {Rede k}
+% \simbololista{pi}{\ensuremath{\pi}}{Número pi} 
+% \simbololista{r}{\ensuremath{r}}{Raio de um círculo}
+% \simbololista{A}{\ensuremath{A}}{Área de um círculo}
+
+% compila a lista de abreviaturas e siglas e a lista de símbolos
+\makenoidxglossaries 
+
+% ---
+
+% ---
+% compila o indice
+% ---
+\makeindex
+% ---
+
+% ----
+% Início do documento
+% ----
+\begin{document}
+
+% Seleciona o idioma do documento (conforme pacotes do babel)
+% \selectlanguage{english}
+\selectlanguage{brazil}
+
+% Retira espaço extra obsoleto entre as frases.
+\frenchspacing 
+
+% Espaçamento 1.5 entre linhas
+\OnehalfSpacing
+
+% Corrige justificação
+%\sloppy
+
+% ----------------------------------------------------------
+% ELEMENTOS PRÉ-TEXTUAIS
+% ----------------------------------------------------------
+% \pretextual %a macro \pretextual é acionado automaticamente no início de \begin{document}
+% ---
+% Capa, folha de rosto, ficha bibliografica, errata, folha de apróvação
+% Dedicatória, agradecimentos, epígrafe, resumos, listas
+% ---
+\input{beforetext/beforetext}
+% ---
+
+% ----------------------------------------------------------
+% ELEMENTOS TEXTUAIS
+% ----------------------------------------------------------
+\textual
+
+\include{chapters/1-chapter}
+
+\include{chapters/2-chapter}
+
+\include{chapters/3-chapter}
+
+\include{chapters/4-chapter}
+
+\include{chapters/5-chapter}
+
+% ----------------------------------------------------------
+% ELEMENTOS PÓS-TEXTUAIS
+% ----------------------------------------------------------
+\postextual
+% ----------------------------------------------------------
+
+% ----------------------------------------------------------
+% Referências bibliográficas
+% ----------------------------------------------------------
+\begingroup
+	\SingleSpacing
+	\printbibliography[title=REFERÊNCIAS]
+\endgroup
+
+% ----------------------------------------------------------
+% Glossário
+% ----------------------------------------------------------
+%
+% Consulte o manual da classe abntex2 para orientações sobre o glossário.
+%
+% \glossary
+
+% ----------------------------------------------------------
+% Apêndices
+% ----------------------------------------------------------
+
+% ---
+% Inicia os apêndices
+% ---
+%\begin{apendicesenv}
+%	\partapendices* 
+%	\input{aftertext/apendice_a}
+%\end{apendicesenv}
+% ---
+
+
+% ----------------------------------------------------------
+% Anexos
+% ----------------------------------------------------------
+
+% ---
+% Inicia os anexos
+% ---
+%\begin{anexosenv}
+%	\partanexos*
+	%\input{aftertext/anexo_a}
+%\end{anexosenv}
+
+%---------------------------------------------------------------------
+% INDICE REMISSIVO
+%---------------------------------------------------------------------
+%\phantompart
+%\printindex
+%---------------------------------------------------------------------
+
+\end{document}
