@@ -46,13 +46,13 @@ Por fim, quando um terceiro -- como empresa, universidade ou empregador -- desej
 
 \section{Multimodal Document Image Classification}
 
-O trabalho de \citeauthor*{multimodal} \cite*{multimodal} não lida diretamente com a identificação de documentos falsificados ou fraudados, na verdade, trata do problema geral de classificação de imagens. No entanto, a abordagem utilizada pelos autores é altamente relevante, pois mostra a eficácia da análise multimodal, e pode ser aproveitada por este trabalho de conclusão de curso.
+O trabalho de \citeauthor*{multimodal} \cite*{multimodal} não lida diretamente com a identificação de documentos falsificados ou fraudados, mas sim do problema geral de classificação de imagens. No entanto, a abordagem utilizada pelos autores é altamente relevante, pois mostra a eficácia da análise multimodal e pode ser aproveitada por este trabalho de conclusão de curso.
 
-O \textit{paper} propõe uma abordagem multimodal para a classificação de imagens de documentos diversos em dezesseis categorias -- o trabalho utiliza o \textit{dataset} RVL-CDIP. A proposta combina a fusão de características visuais e textuais para a rotulagem entre imagens e classes. Para isso, segue o pipeline:
+O \textit{paper} propõe uma abordagem multimodal para a classificação de imagens de documentos diversos em dezesseis categorias utilizando o \textit{dataset} RVL-CDIP. A proposta combina a fusão de características visuais e textuais para a rotulagem entre imagens e classes. Para isso, segue o \textit{pipeline}:
 
 \begin{enumerate}
     \item Pré-processamento: normaliza e redimensiona as imagens para utilizações posteriores;
-    \item Extração de texto: utiliza \textit{OCR} para extrair texto das páginas;
+    \item Extração de texto: utiliza OCR para extrair texto das páginas;
     \item Extração multimodal, em paralelo:
     \subitem Modalidade textual: utiliza um modelos de linguagem para capturar informações semânticas dos textos extraídos;
     \subitem Modalidade visual: extrai características das imagens a partir de uma rede convolucional;
@@ -60,11 +60,11 @@ O \textit{paper} propõe uma abordagem multimodal para a classificação de imag
     \item Classificação final: utiliza uma rede convolucional, que tem como entrada a fusão multimodal, para classificar os documentos.
 \end{enumerate}
 
-Para a modalidade textual, os autores trazem à tona o problema de que texto extraído por \textit{OCR} pode ser muito ruidoso, contendo erros a nível de caracteres ou até palavras. Por isso, capturam representações do conteúdo em três diferentes granularidades. 
+Para a modalidade textual, os autores trazem à tona o problema de que texto extraído por OCR pode ser muito ruidoso, contendo erros a nível de caracteres ou até palavras. Por isso, capturam representações do conteúdo em três diferentes granularidades. 
 
-A nível de sequência, empregam ULMFiT (\textit{Universal Language Model Fine-tuning}), um modelo que processa o documento como uma sequência de palavras e mantém uma "memória interna" que armazena informações contextuais conforme processa cada palavra sequencialmente. Isso permite que a rede neural capture sequências lógicas, dependências de longo prazo e contexto semântico entre palavras distantes. Como saída, o algoritmo produz uma representação vetorial do texto que leva em consideração as características citadas.
+A nível de sequência, empregam ULMFiT (\textit{Universal Language Model Fine-tuning}), um modelo que processa o documento como uma sequência de palavras e mantém uma "memória interna", que armazena informações contextuais conforme processa cada palavra sequencialmente. Isso permite que a rede neural capture sequências lógicas, dependências de longo prazo e contexto semântico entre palavras distantes. Como saída, o algoritmo produz uma representação vetorial do texto que leva em consideração as características citadas.
 
-A nível de palavra, empregam \textit{FastText embeddings} para representar cada palavra do documento. A técnica consiste em transformar os termos em vetores numéricos, de forma que palavras com significados similares fiquem próximas no espaço matemático. O vetor final do documento é calculado como a média dos \textit{embeddings} de todas as palavras presentes.
+A nível de palavra, para representar cada uma, empregam FastText \textit{embeddings}. A técnica consiste em transformar os termos em vetores numéricos, de forma que palavras com significados similares fiquem próximas no espaço matemático. O vetor final do documento é calculado como a média dos \textit{embeddings} de todas as palavras presentes.
 
 A nível de caractere, para capturar padrões ortográficos, aplicam N-gramas de caracteres -- sequências contínuas de n caracteres abduzidos de uma palavra -- e criam um vetor numérico normalizado das ocorrências dos padrões obtidos.
 
@@ -72,14 +72,14 @@ Em resumo, as características de sequência preservam o contexto semântico ger
 
 Para a modalidade visual, o trabalho emprega a arquitetura de rede VGG-16 (\textit{Visual Geometry Group}) para extrair características hierárquicas através de suas camadas convolucionais, capturando padrões de layout, tipografia, elementos gráficos e padrões de formatação presentes nos documentos. Como saída, a rede produz um vetor multidimensional que representa uma codificação densa e compacta de todas as informações visuais relevantes do documento.
 
-O principal interesse desse trabalho é a fusão das informações textuais e visuais, que tem por objetivo criar uma representação unificada que preserve e potencialize as informações complementares de ambas as modalidades, permitindo que um modelo de classificação final explore sinergias entre essas diferentes características. Os autores propõem duas estratégias principais para combinar essas representações, das quais destaca-se a segunda, que combina os vetores anteriormente extraídos.
+O principal interesse desse trabalho é a fusão das informações textuais e visuais, que tem por objetivo criar uma representação unificada, que preserve e potencialize as informações complementares de ambas as modalidades, e que permita que um modelo de classificação final explore sinergias entre essas diferentes características. Os autores propõem duas estratégias principais para combinar essas representações, das quais destaca-se a segunda, que combina os vetores anteriormente extraídos.
 
-Essa abordagem explora quatro métodos distintos de junção. De forma geral, o primeiro é a concatenação simples, onde os vetores de características textuais e visuais são diretamente concatenados para formar um vetor unificado. O segundo método utiliza adição elemento a elemento, somando diretamente as representações de ambas as modalidades. O terceiro emprega \textit{compact bilinear pooling}, uma técnica mais sofisticada que calcula o produto externo entre os vetores de características para capturar interações complexas entre as modalidades, permitindo que o modelo de classificação posterior aprenda correlações não-lineares entre informações visuais e textuais. Por fim, o quarto método implementa \textit{multimodal gated units}, que utilizam mecanismos de atenção para aprender uma função de controle que determina automaticamente como ponderar e combinar as características de cada modalidade, permitindo que o modelo posterior adapte dinamicamente a importância relativa de informações visuais ou textuais dependendo do contexto específico do documento -- para documentos altamente textuais como contratos ou relatórios científicos, as características semânticas podem ser mais discriminativas, enquanto para documentos com layouts visuais distintivos como formulários ou apresentações, as características visuais podem ser mais relevantes.
+Essa abordagem explora quatro métodos distintos de junção. De forma geral, o primeiro é a concatenação simples, onde os vetores de características textuais e visuais são diretamente concatenados para formar um vetor unificado. O segundo método utiliza adição elemento a elemento, somando diretamente as representações de ambas as modalidades. O terceiro emprega \textit{compact bilinear pooling}, uma técnica mais sofisticada que calcula o produto externo entre os vetores de características para capturar interações complexas entre as modalidades, permitindo que o modelo de classificação posterior aprenda correlações não-lineares entre informações visuais e textuais. Por fim, o quarto método implementa \textit{multimodal gated units}, que utilizam mecanismos de atenção para aprender uma função de controle que determina automaticamente como ponderar e combinar as características de cada modalidade, o que permite que o modelo posterior adapte dinamicamente a importância relativa de informações visuais ou textuais dependendo do contexto específico do documento -- para documentos altamente textuais como contratos ou relatórios científicos, as características semânticas podem ser mais discriminativas, enquanto para documentos com layouts visuais distintivos como formulários ou apresentações, as características visuais podem ser mais relevantes.
 
-Para realizar a classificação final, em sequência à etapa de fusão multimodal, Os autores utilizam uma camada densa e uma camada final \textit{softmax} para a predição, como ilustra a figura \ref{fig:multimodal}.
+Em sequência, para realizar a classificação final, os autores utilizam uma camada densa e uma camada final \textit{softmax} para a predição, como ilustra a figura \ref{fig:multimodal}.
 
 \begin{figure}[H]
-	\caption{\label{fig:multimodal}Representação da Arquitetura de Validação de Diplomas por \citeauthor*{multimodal}}
+	\caption{\label{fig:multimodal}Representação da Arquitetura de Fusão Multimodal por \citeauthor*{multimodal}}
     \begin{center}
     \includegraphics[width=1\linewidth]{images/multimodal.png}
 	\end{center}
@@ -89,3 +89,21 @@ Para realizar a classificação final, em sequência à etapa de fusão multimod
 Finalmente, o artigo compartilha as conclusões finais, onde explicita como essa abordagem superou consistentemente os métodos que utilizam apenas uma modalidade, com o método de adição elemento a elemento curiosamente alcançando os melhores resultados para a fusão multimodal, atingindo uma acurácia de $93,6$\% no \textit{dataset} RVL-CDIP.
 
 \section{CERTIFICATE FRAUD VERIFICATION MODEL USING CLUSTERED-BASED CLASSIFICATION APPROACH}
+
+O trabalho de \citeauthor*{clusterfraudverification} \cite*{clusterfraudverification} lida diretamente com o problema de verificação da autenticidade de certificados acadêmicos. Para isso, propõe uma abordagem baseada em \textit{clustering}, fundamentado na premissa de que documentos legítimos apresentam padrões consistentes de características que podem ser identificados através desses agrupamentos.
+
+O \textit{dataset} utilizado pelos autores consiste em mais de vinte e quatro mil amostras de documentos não rotulados, oficialmente emitidos por duas universidades: Enugu State University of Science and Technology e University of California Irvine.
+
+A metodologia dos autores utiliza o algoritmo K-means como técnica principal para descobrir os padrões dominantes em certificados acadêmicos. Dessa forma, o processo de treinamento consiste na aplicação desse algoritmo sobre as características extraídas dos documentos do \textit{dataset}, com o objetivo de agrupá-los em dezesseis grupos. O algoritmo inicializa centroides e atribui iterativamente cada arquivo ao centroide mais próximo usando um modelo de equidistância. Os centroides são atualizados através do cálculo das médias dos pontos pertencentes a cada \textit{cluster} até atingir convergência. Para a verificação de documentos, o sistema extrai suas características e calcula distâncias em relação aos centroides estabelecidos, classificando-o como legítimo, quando próximo de algum padrão conhecido, ou suspeito, quando distante de todos os \textit{clusters}.
+
+Embora os autores não especifiquem os processos de extração de características, as figuras apresentadas sugerem fortemente o uso de \textit{features} visuais. As imagens, como exemplificado na figura \ref{fig:clusterfraudverification}, mostram marcações circulares em pontos específicos dos certificados, destacando elementos como logos institucionais e aspectos estruturais dos documentos. Assume-se, portanto, que o sistema captura e converte essas informações em vetores numéricos compatíveis com o K-means.
+
+\begin{figure}[H]
+	\caption{\label{fig:clusterfraudverification}Resultado da Verificação de um Documento Autêntico}
+    \begin{center}
+    \includegraphics[width=1\linewidth]{images/clusterfraudverification.png}
+	\end{center}
+	\fonte{\cite{clusterfraudverification}}
+\end{figure}
+
+O modelo foi validado experimentalmente com certificados reais e demonstrou capacidade de distinguir documentos autênticos de falsificados, já que os resultados reportaram uma acurácia geral de $86,53$\%. Os autores destacam como principal vantagem a capacidade do sistema de operar efetivamente com \textit{datasets} limitados, característica importante em cenários reais onde a disponibilidade de dados rotulados é restrita por questões éticas e de privacidade.
