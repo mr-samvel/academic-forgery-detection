@@ -82,7 +82,7 @@ O \textit{paper} propõe uma abordagem multimodal para a classificação de imag
 
 Para a modalidade textual, os autores trazem à tona o problema de que texto extraído por OCR pode ser muito ruidoso, contendo erros a nível de caracteres ou até palavras. Por isso, capturam representações do conteúdo em três diferentes granularidades. 
 
-A nível de sequência, empregam ULMFiT (\textit{Universal Language Model Fine-tuning}), um modelo que processa o documento como uma sequência de palavras e mantém uma "memória interna", que armazena informações contextuais conforme processa cada palavra sequencialmente. Isso permite que a rede neural capture sequências lógicas, dependências de longo prazo e contexto semântico entre palavras distantes. Como saída, o algoritmo produz uma representação vetorial do texto que leva em consideração as características citadas.
+A nível de sequência, empregam ULMFiT (\textit{Universal Language Model Fine-tuning}), um modelo que processa o documento como uma sequência de palavras e mantém uma "memória interna", que armazena informações contextuais conforme processa cada palavra sequêncialmente. Isso permite que a rede neural capture sequências lógicas, dependências de longo prazo e contexto semântico entre palavras distantes. Como saída, o algoritmo produz uma representação vetorial do texto que leva em consideração as características citadas.
 
 A nível de palavra, para representar cada uma, empregam FastText \textit{embeddings}. A técnica consiste em transformar os termos em vetores numéricos, de forma que palavras com significados similares fiquem próximas no espaço matemático. O vetor final do documento é calculado como a média dos \textit{embeddings} de todas as palavras presentes.
 
