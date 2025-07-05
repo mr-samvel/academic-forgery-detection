@@ -103,23 +103,22 @@ As abordagens modernas de processamento de linguagem dividem-se, majoritariament
 
 As redes neurais recorrentes constituem a base das arquiteturas sequenciais para processamento de linguagem natural. Uma RNN processa sequências de entrada $x_1, x_2, ..., x_{t}$ mantendo um estado oculto $h_{t}$ que é atualizado a cada passo temporal, conforme $h_{t} = \tanh(W_{xh}x_{t} + W_{hh}h_{t-1} + b_{h})$, onde $W_{xh}$ e $W_{hh}$ são matrizes de peso e $b_{h}$ é um vetor de viés \cite{lstm}, ou seja, EXPLICAR SIMPLIFICADO. Apesar de teoricamente capazes de capturar dependências de longo prazo, RNNs básicas sofrem do problema de desvanecimento de gradiente, limitando sua capacidade prática em sequências longas, onde informações distantes na sequência são gradualmente perdidas durante o treinamento, limitando sua eficácia em sequências longas \cite{nlp}.
 
-% As redes Long Short-Term Memory (LSTM) resolvem essa limitação através de uma arquitetura de células especializadas que controlam seletivamente o fluxo de informação. Cada célula LSTM utiliza três mecanismos principais: o forget gate determina quais informações do estado anterior devem ser descartadas; o input gate decide quais novas informações serão armazenadas no estado da célula; e o output gate controla quais partes do estado interno influenciarão a saída atual. Esses gates utilizam funções sigmoid para produzir valores entre 0 e 1, funcionando como filtros que modulam o fluxo de informação. Um estado interno da célula é mantido separadamente, permitindo que informações relevantes sejam preservadas através de muitos passos temporais sem degradação. Esta arquitetura possibilita a captura de dependências linguísticas complexas em documentos longos, essencial para compreender estruturas sintáticas e semânticas que se estendem além de contextos locais.
-
-% A evolução para arquiteturas Transformer representa uma mudança paradigmática no processamento sequencial, abandonando completamente a recorrência em favor de mecanismos de self-attention que processam todos os tokens simultaneamente. O core do Transformer é a operação de self-attention, onde cada posição na sequência pode atender diretamente a todas as outras posições, calculando pesos de atenção que determinam a relevância de cada token para a representação de cada posição. Este mecanismo utiliza três componentes principais: queries (consultas), keys (chaves) e values (valores), derivados da representação de entrada através de transformações lineares. Os pesos de atenção são computados através da similaridade entre queries e keys, normalizados por uma função softmax, e utilizados para criar uma combinação ponderada dos values.
-
-% Os Transformers extraem características textuais através de múltiplas camadas de encoder que aplicam sucessivamente self-attention e redes feed-forward. O mecanismo de multi-head attention executa várias operações de attention em paralelo, cada uma focando em diferentes tipos de relações linguísticas, desde dependências sintáticas locais até relações semânticas de longo alcance. As embeddings posicionais adicionadas às word embeddings preservam informação sobre ordem sequencial. Durante o treinamento em tarefas como masked language modeling, o modelo aprende representações contextuais que capturam padrões linguísticos sutis, incluindo estruturas sintáticas, relações semânticas e convenções estilísticas específicas do domínio. As representações de diferentes camadas codificam informações hierárquicas: camadas inferiores capturam características sintáticas e estruturais, enquanto camadas superiores desenvolvem representações semânticas mais abstratas e conscientes do contexto global.
-
-% No contexto da detecção de documentos acadêmicos falsificados, as arquiteturas baseadas em Transformer oferecem capacidade superior para identificar inconsistências linguísticas sutis que caracterizam documentos forjados. As representações contextuais extraídas podem detectar padrões anômalos na terminologia institucional, estruturas sintáticas atípicas para o domínio acadêmico, e inconsistências na formalidade e convenções textuais específicas de cada tipo de documento. Quando integradas em uma abordagem multimodal junto às características visuais e estruturais, essas representações textuais profundas constituem uma dimensão fundamental para a detecção de anomalias, particularmente eficaz para identificar falsificações que mantêm aparência visual convincente mas apresentam deficiências linguísticas reveladoras.
-
-
 \section{Análise Multimodal}
 
+% https://huggingface.co/blog/document-ai
+
 \section{Aprendizado não-supervisionado}
+
+% Towards a Unified Framework of Clustering-based Anomaly Detection
+
+% Unsupervised Clustering Approach for Network  Anomaly Detection
+
+% talvez? Improved Density Peaking Algorithm for Community Detection  Based on Graph Representation Learning 
+
+% geralzao Survey on Anomaly Detection using Data Mining Techniques
 
 \subsection{Algoritmos de Agrupamento}
 
 % K-means, DBSCAN, HDBSCAN aplicados a documentos
 
 \subsection{Detecção de Anomalias e Outliers}
-
-% detecção de outliers e anomalias
