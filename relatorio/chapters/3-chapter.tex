@@ -4,18 +4,38 @@ As próximas seções apresentam os mais recentes trabalhos com temática ou abo
 
 \section{Visão Geral}
 
-É difícil encontrar bibliografia que trata especificamente do problema da identificação de documentos falsificados, sobretudo no âmbito acadêmico, já que a maioria dos trabalhos com temática similar aborda a classificação de fraudes. É importante fazer a distinção de que, enquanto a detecção de fraudes foca em adulterações de arquivos originais -- como a mudança de notas, datas ou nomes --, a de documentos falsificados busca identificar aqueles completamente forjados desde sua criação. Isso não significa que as ideias e técnicas não possam ser aproveitadas e adaptadas entre um contexto e outro, pelo contrário, este trabalho de conclusão de curso tem como referência métodos nos dois domínios.
+Durante a pesquisa por bibliografia que trata especificamente do problema da identificação de documentos falsificados, foram encontrados poucos resultados, sobretudo no âmbito acadêmico, já que a maioria dos trabalhos com temática similar aborda a classificação de fraudes -- dificuldade ilustrada pela tabela \ref{tab:bibliography}, que apresenta a bibliografia obtida que trata desse tema. É importante distinguir que, a detecção de fraudes foca em adulterações de arquivos originais, como a mudança de notas, datas ou nomes, enquanto a de documentos falsificados busca identificar aqueles completamente forjados desde sua criação, sem terem sido emitidos por instituições oficiais, por exemplo. Isso não significa que as ideias e técnicas não possam ser aproveitadas e adaptadas entre um contexto e outro, pelo contrário, este trabalho de conclusão de curso tem como referência métodos nos dois domínios.
 
-Nesta área, é predominante o emprego de estratégias de visão computacional, como o artigo de \citeauthor*{inkcnn} \cite*{inkcnn}, que utiliza \textit{autoencoders} convolucionais para a extração de características em imagens hiperespectrais, focando em identificar incompatibilidade entre tintas. A análise de imagens é frequentemente combinada com técnicas complementares para melhorar a robustez da detecção: \citeauthor*{unsupervisednetwork} \cite*{unsupervisednetwork} propõem uma abordagem não supervisionada que utiliza correlações entre espectros de materiais dos documentos para gerar redes ponderadas, aplicando algoritmos de \textit{clustering} para identificar padrões anômalos; \citeauthor*{ocrgraph} \cite*{ocrgraph} introduziram outra perspectiva ao reformular o problema como comparação de grafos, em que obtém, via \textit{OCR}, caixas delimitadoras de tamanho entre caracteres, utilizando-as para o treinamento de classificadores que detectam a manipulação de \textit{pixels}.
+\begin{table}[H]
+    \caption{Bibliografia Pesquisada com Temas Abordados}
+    \label{tab:bibliography}
+    \resizebox{\linewidth}{!}{%
+    \begin{tabular}{@{}l|c@{}}
+      \toprule
+      \multicolumn{1}{c}{Artigos de Detecção de Fraude} & \multicolumn{1}{c}{Aborda Detecção de Falsificação} \\
+      \midrule
+        \citeauthor*{blockchainforgery} \cite*{blockchainforgery} & \checkmark \\ \hline
+        \citeauthor*{clusterfraudverification} \cite*{clusterfraudverification} & \\ \hline
+        \citeauthor*{inkcnn} \cite*{inkcnn} & \\ \hline
+        \citeauthor*{hashdetection} \cite*{hashdetection} & \\ \hline
+        \citeauthor*{multimodalforgery} \cite*{multimodalforgery} & \checkmark \\ \hline
+        \citeauthor*{mldocauth} \cite*{mldocauth} & \\ \hline
+        \citeauthor*{ocrgraph} \cite*{ocrgraph} & \\ \hline
+        \citeauthor*{unsupervisednetwork} \cite*{unsupervisednetwork} & \checkmark \\
+      \bottomrule
+    \end{tabular}%
+  }
+\end{table}
 
-Alternativamente, também existem propostas que abordam a prevenção de fraudes através de outras tecnologias, como \citeauthor*{hashdetection} \cite*{hashdetection}, que propõe o emprego de funções criptográficas para detectar modificações em documentos previamente submetidos, em que são armazenados os valores de \textit{hash} dos arquivos originais e legítimos, de forma que validações posteriores possam ser comparadas com o certificado primário. Contudo, essas abordagens preventivas não lidam com a classificação de documentos falsificados em sua concepção, representando uma lacuna pouco explorada, que o presente trabalho visa preencher. Em sequência seguem os trabalhos que guiaram a concepção da estratégia deste trabalho.
+Nesta área, é predominante o emprego de estratégias de visão computacional, como o artigo de \citeauthor*{inkcnn} \cite*{inkcnn}, que utiliza \textit{autoencoders} convolucionais para a extração de características em imagens hiperespectrais, focando em identificar incompatibilidade entre tintas. A análise de imagens é frequentemente combinada com técnicas complementares para melhorar a robustez da detecção: \citeauthor*{unsupervisednetwork} \cite*{unsupervisednetwork} propõem uma abordagem não supervisionada que utiliza correlações entre espectros de materiais dos documentos para gerar redes ponderadas, aplicando algoritmos de \textit{clustering} para identificar padrões anômalos; \citeauthor*{ocrgraph} \cite*{ocrgraph} introduziram outra perspectiva ao reformular o problema como comparação de grafos, em que obtém, via OCR, caixas delimitadoras de tamanho entre caracteres, utilizando-as para o treinamento de classificadores que detectam a manipulação de \textit{pixels}.
 
-\section{Blockchain Smart Contract to Prevent Forgery of Degree Certificates:
-Artificial Intelligence Consensus Algorithm}
+Alternativamente, também existem propostas que abordam a prevenção de fraudes através de outras tecnologias, como \citeauthor*{hashdetection} \cite*{hashdetection}, que propõe o emprego de funções criptográficas para detectar modificações em documentos previamente submetidos, em que são armazenados os valores de \textit{hash} dos arquivos originais e legítimos, de forma que validações posteriores possam ser comparadas com o certificado primário. Contudo, essas abordagens preventivas não lidam com a classificação de documentos falsificados em sua concepção, representando uma lacuna pouco explorada, que o presente estudo visa preencher. Em sequência seguem os trabalhos que guiaram a concepção da estratégia da presente pesquisa.
+
+\section{``\protect\textit{Blockchain Smart Contract to Prevent Forgery of Degree Certificates: Artificial Intelligence Consensus Algorithm}``}
 
 Para o problema de prevenção de fraudes de diplomas, o artigo de \citeauthor*{blockchainforgery} \cite*{blockchainforgery} propõe uma \textit{blockchain} que incorpora algoritmos de aprendizado de máquina em diversas partes do processo de verificação de documentos e de consenso da rede. Além disso, de forma semelhante ao trabalho de \citeauthor*{hashdetection} \cite*{hashdetection}, quando um certificado é aceito, seu \textit{hash} é calculado e integrado ao seu registro na rede, permitindo sua verificabilidade, de forma que qualquer adulteração seja facilmente detectada.
 
-O autor apresenta o fluxo para submissão de um diploma na \textit{blockchain} em quatro etapas principais, conforme figura \ref{fig:blockchainforgery}.
+O autor apresenta o fluxo para submissão de um diploma na \textit{blockchain} em quatro etapas principais, conforme Figura \ref{fig:blockchainforgery}.
 
 \begin{figure}[H]
 	\caption{\label{fig:blockchainforgery}Representação da Arquitetura de Validação de Diplomas por \citeauthor*{blockchainforgery}}
@@ -44,7 +64,7 @@ Assim, cada nó da \textit{blockchain} executa esses algoritmos e vota, com base
 
 Por fim, quando um terceiro -- como empresa, universidade ou empregador -- deseja verificar a validade de um diploma já registrado, basta a verificação do \textit{hash} do documento já submetido.
 
-\section{Multimodal Document Image Classification}
+\section{``\protect\textit{Multimodal Document Image Classification}``}
 
 O trabalho de \citeauthor*{multimodal} \cite*{multimodal} não lida diretamente com a identificação de documentos falsificados ou fraudados, mas sim do problema geral de classificação de imagens. No entanto, a abordagem utilizada pelos autores é altamente relevante, pois mostra a eficácia da análise multimodal e pode ser aproveitada por este trabalho de conclusão de curso.
 
@@ -76,7 +96,7 @@ O principal interesse desse trabalho é a fusão das informações textuais e vi
 
 Essa abordagem explora quatro métodos distintos de junção. De forma geral, o primeiro é a concatenação simples, onde os vetores de características textuais e visuais são diretamente concatenados para formar um vetor unificado. O segundo método utiliza adição elemento a elemento, somando diretamente as representações de ambas as modalidades. O terceiro emprega \textit{compact bilinear pooling}, uma técnica mais sofisticada que calcula o produto externo entre os vetores de características para capturar interações complexas entre as modalidades, permitindo que o modelo de classificação posterior aprenda correlações não-lineares entre informações visuais e textuais. Por fim, o quarto método implementa \textit{multimodal gated units}, que utilizam mecanismos de atenção para aprender uma função de controle que determina automaticamente como ponderar e combinar as características de cada modalidade, o que permite que o modelo posterior adapte dinamicamente a importância relativa de informações visuais ou textuais dependendo do contexto específico do documento -- para documentos altamente textuais como contratos ou relatórios científicos, as características semânticas podem ser mais discriminativas, enquanto para documentos com layouts visuais distintivos como formulários ou apresentações, as características visuais podem ser mais relevantes.
 
-Em sequência, para realizar a classificação final, os autores utilizam uma camada densa e uma camada final \textit{softmax} para a predição, como ilustra a figura \ref{fig:multimodal}.
+Em sequência, para realizar a classificação final, os autores utilizam uma camada densa e uma camada final \textit{softmax} para a predição, como ilustra a Figura \ref{fig:multimodal}.
 
 \begin{figure}[H]
 	\caption{\label{fig:multimodal}Representação da Arquitetura de Fusão Multimodal por \citeauthor*{multimodal}}
@@ -86,9 +106,9 @@ Em sequência, para realizar a classificação final, os autores utilizam uma ca
 	\fonte{\cite{multimodal}}
 \end{figure}
 
-Finalmente, o artigo compartilha as conclusões finais, onde explicita como essa abordagem superou consistentemente os métodos que utilizam apenas uma modalidade, com o método de adição elemento a elemento curiosamente alcançando os melhores resultados para a fusão multimodal, atingindo uma acurácia de $93,6$\% no \textit{dataset} RVL-CDIP.
+Finalmente, o artigo compartilha as conclusões finais, onde explicita como essa abordagem superou consistentemente os métodos que utilizam apenas uma modalidade, com o método de adição elemento a elemento curiosamente alcançando os melhores resultados para a fusão multimodal, atingindo uma acurácia de 93,6\% no \textit{dataset} RVL-CDIP.
 
-\section{CERTIFICATE FRAUD VERIFICATION MODEL USING CLUSTERED-BASED CLASSIFICATION APPROACH}
+\section{``\protect\textit{CERTIFICATE FRAUD VERIFICATION MODEL USING CLUSTERED-BASED CLASSIFICATION APPROACH}``}
 
 O trabalho de \citeauthor*{clusterfraudverification} \cite*{clusterfraudverification} lida diretamente com o problema de verificação da autenticidade de certificados acadêmicos. Para isso, propõe uma abordagem baseada em \textit{clustering}, fundamentado na premissa de que documentos legítimos apresentam padrões consistentes de características que podem ser identificados através desses agrupamentos.
 
@@ -96,7 +116,7 @@ O \textit{dataset} utilizado pelos autores consiste em mais de vinte e quatro mi
 
 A metodologia dos autores utiliza o algoritmo K-means como técnica principal para descobrir os padrões dominantes em certificados acadêmicos. Dessa forma, o processo de treinamento consiste na aplicação desse algoritmo sobre as características extraídas dos documentos do \textit{dataset}, com o objetivo de agrupá-los em dezesseis grupos. O algoritmo inicializa centroides e atribui iterativamente cada arquivo ao centroide mais próximo usando um modelo de equidistância. Os centroides são atualizados através do cálculo das médias dos pontos pertencentes a cada \textit{cluster} até atingir convergência. Para a verificação de documentos, o sistema extrai suas características e calcula distâncias em relação aos centroides estabelecidos, classificando-o como legítimo, quando próximo de algum padrão conhecido, ou suspeito, quando distante de todos os \textit{clusters}.
 
-Embora os autores não especifiquem os processos de extração de características, as figuras apresentadas sugerem fortemente o uso de \textit{features} visuais. As imagens, como exemplificado na figura \ref{fig:clusterfraudverification}, mostram marcações circulares em pontos específicos dos certificados, destacando elementos como logos institucionais e aspectos estruturais dos documentos. Assume-se, portanto, que o sistema captura e converte essas informações em vetores numéricos compatíveis com o K-means.
+Embora os autores não especifiquem os processos de extração de características, as figuras apresentadas sugerem fortemente o uso de \textit{features} visuais. As imagens, como exemplificado na Figura \ref{fig:clusterfraudverification}, mostram marcações circulares em pontos específicos dos certificados, destacando elementos como logos institucionais e aspectos estruturais dos documentos. Assume-se, portanto, que o sistema captura e converte essas informações em vetores numéricos compatíveis com o K-means.
 
 \begin{figure}[H]
 	\caption{\label{fig:clusterfraudverification}Resultado da Verificação de um Documento Autêntico}
@@ -106,4 +126,4 @@ Embora os autores não especifiquem os processos de extração de característic
 	\fonte{\cite{clusterfraudverification}}
 \end{figure}
 
-O modelo foi validado experimentalmente com certificados reais e demonstrou capacidade de distinguir documentos autênticos de falsificados, já que os resultados reportaram uma acurácia geral de $86,53$\%. Os autores destacam como principal vantagem a capacidade do sistema de operar efetivamente com \textit{datasets} limitados, característica importante em cenários reais onde a disponibilidade de dados rotulados é restrita por questões éticas e de privacidade.
+O modelo foi validado experimentalmente com certificados reais e demonstrou capacidade de distinguir documentos autênticos de falsificados, já que os resultados reportaram uma acurácia geral de 86,53\%. Os autores destacam como principal vantagem a capacidade do sistema de operar efetivamente com \textit{datasets} limitados, característica importante em cenários reais onde a disponibilidade de dados rotulados é restrita por questões éticas e de privacidade.
