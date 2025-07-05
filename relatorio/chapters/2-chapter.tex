@@ -26,7 +26,7 @@ A unidade mais básica de uma rede neural artificial é um neurônio artificial 
 	\fonte{o autor}
 \end{figure}
 
-No exemplo representado na figura \ref{fig:neuron}, um neurônio recebe dados de entrada, $x_1$ e $x_2$, e produz uma saída $y$. Para isso, cada entrada é multiplicada por seu respectivo peso, $w_1$ e $w_2$, e somada junto a um termo de viés $b$ -- assim, a equação resultante é igual a $\Sigma = x_1*w_1 + x_2*w_2 + b$. Finalmente, aplica-se uma função de ativação $f$ sobre a soma para converter esse valor em um intervalo desejado -- a tangente hiperbólica produziria um número dentro do intervalo $(-1, 1)$, enquanto a sigmoid produziria um intervalo entre $(0, 1)$, por exemplo -- resultando na saída $y$ \cite{deeplearningbook}. Em outras palavras, os pesos indicam a importância, ou força, da conexão entre a entrada e o neurônio; o viés atua como um limiar de ativação que independe das entradas; e a função de ativação transforma uma entrada linear em uma saída não linear, o que permite um mapeamento complexo entre entradas e saídas. 
+No exemplo representado na figura \ref{fig:neuron}, um neurônio recebe dados de entrada, $x_1$ e $x_2$, e produz uma saída $y$. Para isso, cada entrada é multiplicada por seu respectivo peso, $w_1$ e $w_2$, e somada junto a um termo de viés $b$ -- assim, a equação resultante é igual a $\sum = x_1 w_1 + x_2 w_2 + b$. Finalmente, aplica-se uma função de ativação $f$ sobre a soma para converter esse valor em um intervalo desejado -- a tangente hiperbólica produziria um número dentro do intervalo $(-1, 1)$, enquanto a sigmoid produziria um intervalo entre $(0, 1)$, por exemplo -- resultando na saída $y$ \cite{deeplearningbook}. Em outras palavras, os pesos indicam a importância, ou força, da conexão entre a entrada e o neurônio; o viés atua como um limiar de ativação que independe das entradas; e a função de ativação transforma uma entrada linear em uma saída não linear, o que permite um mapeamento complexo entre entradas e saídas. 
 
 Uma rede neural artificial é formada pela interligação de neurônios, assim, uma camada da rede é denominada a partir de um grupo de nós interligados, que processam dados de uma maneira específica. Combinando uma camada de entrada, camadas intermediárias e uma camada de saída, obtém-se uma rede neural profunda, ilustrada na figura \ref{fig:dnn}. Dessa forma, cada camada recebe entradas ponderadas a partir das camadas anteriores, aplicam uma função de ativação e propagam o resultado para as camadas subsequentes \cite{deeplearningbook}. Diferentes configurações destas, como a variação das conexões entre neurônios ou o emprego de funções de ativação distintas, tem por efeito especializações, ou habilidades de aprendizado específicas, assim, a utilização de múltiplas camadas permite a assimilação de representações hierárquicas complexas. \cite{reviewdeep}.
 
@@ -52,9 +52,65 @@ O processo de aprendizado da rede é denominado treinamento e consiste na estima
 
 \subsection{Redes Neurais Convolucionais}
 
-\subsubsection{Reconhecimento Óptico de Caracteres}
+Redes neurais convolucionais são tipos de redes neurais profundas especialmente úteis na área de visão computacional, especializadas na computação de dados estruturados em topologia de malha, representados matricialmente. O que propicia essa propriedade é o emprego de operações de convolução em pelo menos um módulo da rede, o que consiste em uma mudança no processamento de entrada dos neurônios: ao invés da simples soma ponderada pelos pesos, um cálculo é efetuado a partir da aplicação de um filtro sobre um \textit{input} \cite{deeplearningbook}. Dessa forma, a estrutura de um modelo básico combina camadas convolucionais com camadas de subamostragem, todas esparsamente conectadas \cite{reviewdeep}.
+
+Convolução é uma operação matemática sobre duas funções para a criação de uma terceira, que representa, em termos simplórios, a sobreposição delas. No contexto de redes convolucionais, consiste na multiplicação de duas matrizes seguida de uma soma \cite{origindl}, como demonstrado na figura \ref{fig:convolution}.
+
+\begin{figure}[H]
+	\caption{\label{fig:convolution}Visualização de uma Operação de Convolução}
+    \begin{center}
+    \includegraphics[width=0.75\linewidth]{images/convolution.png}
+	\end{center}
+	\fonte{\cite{origindl}}
+\end{figure}
+
+
+Um filtro -- ou \textit{kernel}, matrizes de parâmetros aprendíveis -- desliza sobre os dados de entrada, a um passo definido, computando o produto escalar entre seus pesos e os valores correspondentes na região coberta, de forma a criar um mapa de características que representa a presença de padrões específicos detectados pelo filtro \cite{deeplearningbook}. Dessa forma, certas configurações, como o tamanho e os pesos do \textit{kernel}, ou o número de passos de deslizamento, controlam a resolução espacial e a capacidade de modelar relações de vizinhança, como figurativamente representado na figura \ref{fig:nono}, em que a escolha de um filtro inicial para a detecção de bordas permite o treinamento da rede para a distinção entre gatos magros e gordos.
+
+\begin{figure}[H]
+	\caption{\label{fig:nono}Representação da Classificação de uma Imagem por uma Rede Convolucional}
+    \begin{center}
+    \includegraphics[width=1\linewidth]{images/nono.png}
+	\end{center}
+	\fonte{o autor}
+\end{figure}
+
+Outro importante aspecto das redes convolucionais são as camadas de subamostragem, que reduzem a dimensão espacial dos dados de entrada ao passo em que preservam suas características mais relevantes, processo conhecido como \textit{pooling}. Atingem isso com a obtenção de apenas uma amostra para cada região analisada, para isso, empregam estratégias como \textit{max-pooling} (extração do maior valor de entrada) e \textit{average-pooling} (extração da média dos valores de entrada). A combinação de camadas convolucionais com camadas de subamostragem conferem às essas redes três propriedades fundamentais: a invariância à pequenas transformações, distorções e translações da entrada, que permite que características sejam detectadas independentemente de sua localização; a capacidade de extrair hierarquias espaciais através da redução progressiva de dimensionalidade; e a redução do custo computacional das camadas subsequentes \cite{origindl}.
+
+Dessa forma, a extração de \textit{features} acontece conforme a entrada percorre a rede. Utilizando como exemplo uma imagem para a entrada, as camadas iniciais capturam informações de baixo nível, como bordas, cantos e texturas. Em camadas intermediárias, essas informações passam a compor padrões semânticos locais, como delimitações de objetos, até que, em camadas mais profundas, transformam-se em caracterizações globais de alto nível, como formas completas. Isso permite que as camadas finais possam prever, ou extrair, representações complexas e abstratas \cite{reviewdeep}, como o exemplo utilizado anteriormente -- a classificação entre gatos gordos e magros.
+
+\subsubsection{Reconhecimento Óptico de Caracteres (OCR)}
+
+O reconhecimento óptico de caracteres (OCR), no contexto de computação, descreve um tipo de software que tem por objetivo a conversão de texto, seja impresso ou em imagem, a um formato digital que possa ser processável por máquina \cite{ocr}. É um problema que pode ser tratado utilizando técnicas de segmentação da visão computacional clássica junto a heurísticas, no entanto, as abordagens que utilizam o aprendizado de máquina -- em especial, redes convolucionais -- têm se mostrado mais eficientes e precisas.
+
+De acordo com \citeauthor*{ocr} \cite*{ocr}, um processo de reconhecimento de caracteres moderno tipicamente passa pelo seguinte \textit{pipeline}:
+
+\begin{enumerate}
+	\item Aquisição da imagem: obtém-se a imagem com o texto a partir de uma fonte externa, como \textit{scanner} ou câmera;
+	\item Pré-processamento: aplicam-se técnicas como remoção de ruído, operações morfológicas e limiarização para melhorar a qualidade da imagem;
+	\item Segmentação de caracteres: separam-se os caracteres através da análise de componentes conectados, perfis de projeção ou métodos avançados para tratar textos sobrepostos ou fragmentados;
+	\item Extração de \textit{features} e classificação de caracteres: com os caracteres separados, utiliza-se uma rede convolucional para a extração e classificação de seus padrões;
+	\item Pós-processamento: para refinar os resultados e aumentar a acurácia, combinam-se técnicas de processamento de linguagem natural, como corretores ortográficos e dicionários com modelos probabilísticos, como cadeias de Markov e N-gramas.
+\end{enumerate}
 
 \subsection{Processamento de Linguagem Natural}
+
+O processamento de linguagem natural é um subcampo da inteligência artificial que se dedica ao desenvolvimento de algoritmos capazes de compreender, interpretar e processar linguagem humana de forma computacional. Tradicionalmente, as abordagens baseavam-se em métodos estatísticos, modelos de N-gramas, campos aleatórios condicionais e máquinas de vetores de suporte. Contudo, as últimas décadas têm visto a adoção de técnicas baseadas em redes neurais profundas, que demonstraram capacidade superior de capturar relações complexas entre palavras e compreender contextos linguísticos mais amplos \cite{nlp}.
+
+Fundamentalmente, as técnicas modernas de processamento de linguagem consistem na transformação de texto em representações numéricas que preservam informações sintáticas e semânticas. \textit{Embeddings} de palavras constituem o passo base dessa transformação, que consiste em um mapeamento destas para vetores densos, onde termos semanticamente similares ocupam posições próximas \cite{nlp}. Isso possibilita o aprendizado de estruturas gramaticais e padrões linguísticos, que por sua vez permite a predição de palavras com base em contextos previamente vistos.
+
+As abordagens modernas de processamento de linguagem dividem-se, majoritariamente, em duas arquiteturas de redes profundas: especializações de redes neurais recorrentes, como LSTM (\textit{long short-term memory}), adequadas para o processamento sequencial; ou arquiteturas baseadas em mecanismos de atenção, como \textit{transformers}, modelos mais recentes que são capazes de capturar dependências de longo prazo \cite{nlp2}.
+
+As redes neurais recorrentes constituem a base das arquiteturas sequenciais para processamento de linguagem natural. Uma RNN processa sequências de entrada $x_1, x_2, ..., x_{t}$ mantendo um estado oculto $h_{t}$ que é atualizado a cada passo temporal, conforme $h_{t} = \tanh(W_{xh}x_{t} + W_{hh}h_{t-1} + b_{h})$, onde $W_{xh}$ e $W_{hh}$ são matrizes de peso e $b_{h}$ é um vetor de viés \cite{lstm}, ou seja, EXPLICAR SIMPLIFICADO. Apesar de teoricamente capazes de capturar dependências de longo prazo, RNNs básicas sofrem do problema de desvanecimento de gradiente, limitando sua capacidade prática em sequências longas, onde informações distantes na sequência são gradualmente perdidas durante o treinamento, limitando sua eficácia em sequências longas \cite{nlp}.
+
+% As redes Long Short-Term Memory (LSTM) resolvem essa limitação através de uma arquitetura de células especializadas que controlam seletivamente o fluxo de informação. Cada célula LSTM utiliza três mecanismos principais: o forget gate determina quais informações do estado anterior devem ser descartadas; o input gate decide quais novas informações serão armazenadas no estado da célula; e o output gate controla quais partes do estado interno influenciarão a saída atual. Esses gates utilizam funções sigmoid para produzir valores entre 0 e 1, funcionando como filtros que modulam o fluxo de informação. Um estado interno da célula é mantido separadamente, permitindo que informações relevantes sejam preservadas através de muitos passos temporais sem degradação. Esta arquitetura possibilita a captura de dependências linguísticas complexas em documentos longos, essencial para compreender estruturas sintáticas e semânticas que se estendem além de contextos locais.
+
+% A evolução para arquiteturas Transformer representa uma mudança paradigmática no processamento sequencial, abandonando completamente a recorrência em favor de mecanismos de self-attention que processam todos os tokens simultaneamente. O core do Transformer é a operação de self-attention, onde cada posição na sequência pode atender diretamente a todas as outras posições, calculando pesos de atenção que determinam a relevância de cada token para a representação de cada posição. Este mecanismo utiliza três componentes principais: queries (consultas), keys (chaves) e values (valores), derivados da representação de entrada através de transformações lineares. Os pesos de atenção são computados através da similaridade entre queries e keys, normalizados por uma função softmax, e utilizados para criar uma combinação ponderada dos values.
+
+% Os Transformers extraem características textuais através de múltiplas camadas de encoder que aplicam sucessivamente self-attention e redes feed-forward. O mecanismo de multi-head attention executa várias operações de attention em paralelo, cada uma focando em diferentes tipos de relações linguísticas, desde dependências sintáticas locais até relações semânticas de longo alcance. As embeddings posicionais adicionadas às word embeddings preservam informação sobre ordem sequencial. Durante o treinamento em tarefas como masked language modeling, o modelo aprende representações contextuais que capturam padrões linguísticos sutis, incluindo estruturas sintáticas, relações semânticas e convenções estilísticas específicas do domínio. As representações de diferentes camadas codificam informações hierárquicas: camadas inferiores capturam características sintáticas e estruturais, enquanto camadas superiores desenvolvem representações semânticas mais abstratas e conscientes do contexto global.
+
+% No contexto da detecção de documentos acadêmicos falsificados, as arquiteturas baseadas em Transformer oferecem capacidade superior para identificar inconsistências linguísticas sutis que caracterizam documentos forjados. As representações contextuais extraídas podem detectar padrões anômalos na terminologia institucional, estruturas sintáticas atípicas para o domínio acadêmico, e inconsistências na formalidade e convenções textuais específicas de cada tipo de documento. Quando integradas em uma abordagem multimodal junto às características visuais e estruturais, essas representações textuais profundas constituem uma dimensão fundamental para a detecção de anomalias, particularmente eficaz para identificar falsificações que mantêm aparência visual convincente mas apresentam deficiências linguísticas reveladoras.
+
 
 \section{Análise Multimodal}
 
