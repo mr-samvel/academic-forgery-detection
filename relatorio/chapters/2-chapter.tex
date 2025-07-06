@@ -121,11 +121,25 @@ Dessa forma, os modelos \textit{Transformer} estruturam-se em duas partes, a pri
 
 \section{Análise Multimodal}
 
-% joint representation https://sci-hub.se/10.1109/tpami.2018.2798607
+A análise multimodal refere-se à integração de informações provenientes de diferentes modalidades de dados, como texto, imagem, áudio e vídeo. Esse tipo de análise reconhece que informações relevantes podem estar distribuídas entre diferentes categorias de dados, sendo que cada uma contribui com aspectos únicos e complementares para a compreensão completa do conteúdo \cite{multimodalsurvey}. Utilizando o caso do presente estudo como exemplo, em um documento acadêmico, o texto isoladamente pode parecer legítimo, no entanto quando combinado com inconsistências visuais, pode revelar sinais de falsificação, e vice-versa.
 
-% https://scontent.ffln1-1.fna.fbcdn.net/v/t39.8562-6/78647855_818048661960903_4592063751666008064_n.pdf?_nc_cat=108&ccb=1-7&_nc_sid=b8d81d&_nc_ohc=a51uPib2S3oQ7kNvwGUn_Xb&_nc_oc=AdnL4R4tPR-wiGdxL36txszxhxoM7bEFgwg8xpZy8pQmcR5xkYlbPzuttuoxgF2-NY1q5SB5_JfV8lCKNojjIe2u&_nc_zt=14&_nc_ht=scontent.ffln1-1.fna&_nc_gid=jUX1D29N18wcL9mmTipMVA&oh=00_AfT-ATPxfc4WvxmOQSDGeL9iXbVIAnsKu57NICiDGL0Pqg&oe=686F8551
+No contexto de aprendizado de máquina, o processo conhecido como fusão multimodal, que consiste em combinar as diferentes representações de tipos de dados em uma unificada, é o que possibilita que modelos de aprendizado consigam, de forma prática e eficiente, aprender as características mais relevantes em diferentes domínios, resultando em representações mais ricas e discriminativas \cite{multimodalsurvey,multimodalforgery}. Dessa forma, as estratégias de fusão são normalmente classificadas pelo momento em que ocorrem, em quatro categorias principais: fusão precoce, onde as representações brutas são combinadas e servem de entrada para o modelo de aprendizado; fusão intermediária, onde as representações são incorporadas durante as etapas de aprendizado, como em camadas intermediárias de uma rede neural; fusão tardia, onde as decisões de classificadores de modalidades distintas são combinadas; e fusão híbrida, que combina diferentes estratégias de fusão \cite{multimodalsurvey}.
 
-\section{Aprendizado não-supervisionado}
+A metodologia deste trabalho utilizará a fusão precoce para combinar os dados extraídos, representados em vetores, a partir das modalidades visuais e textuais. Para isso, \citeauthor*{multimodalmeta} \cite*{multimodalmeta} e \citeauthor*{multimodalforgery} \cite*{multimodalforgery} apresentam diferentes técnicas:
+
+\begin{itemize}
+	\item Concatenação básica: é a abordagem mais simples e direta. Consiste na concatenação simples dos vetores de dados;
+	\item Adição elemento a elemento: consiste na soma direta entre os respectivos elementos de cada modalidade;
+	\item Transformação bilinear: consiste no produto matricial entre os vetores;
+	\item Soma ponderada (\textit{gated summation}): utiliza uma rede neural com funções de ativação específicas, como \textit{weighted sigmoid gate units}, para somar os elementos de forma ponderada, como se o modelo aprendesse a importância de cada fonte de informação;
+	\item Produto ponderado: semelhante à soma ponderada utiliza uma rede neural, mas emprega mecanismos de atenção para o aprendizado, dessa forma, o resultado é o produto matricial entre os vetores, ponderado por uma matriz de pesos.
+\end{itemize}
+
+Não existe uma técnica ótima para todos os casos, são subjetivas às características específicas dos domínios ao qual se deseja a união, assim, a escolha pela melhor abordagem é geralmente determinada pela análise empírica dos resultados \cite{multimodalmeta}.
+
+Além disso, o emprego da fusão multimodal é geralmente associado a outras estratégias auxiliares, que podem tratar tanto os vetores de representação antes da fusão quanto o resultante. Por exemplo, diferentes modalidades possuem características estatísticas e distribuições distintas, dessa forma, pode ser necessário pré-processamento para normalização das escalas dos dados. Da mesma forma, o vetor resultante, por juntar dados muitas vezes situados em espaços de alta dimensionalidade, precisa da aplicação de técnicas de redução dimensional para evitar problemas relacionados à \textit{maldição da dimensionalidade} -- \citeauthor*{bellmancurse} \cite*{bellmancurse} explica que ao lidar com dados em espaços de alta dimensão, sua amostragem e modelagem torna-se progressivamente mais esparsa e difícil dado que o volume do espaço cresce exponencialmente.
+
+\section{Algoritmos de Agrupamento}
 
 % Towards a Unified Framework of Clustering-based Anomaly Detection
 
@@ -134,10 +148,6 @@ Dessa forma, os modelos \textit{Transformer} estruturam-se em duas partes, a pri
 % talvez? Improved Density Peaking Algorithm for Community Detection  Based on Graph Representation Learning 
 
 % geralzao Survey on Anomaly Detection using Data Mining Techniques
-
-\subsection{Algoritmos de Agrupamento}
-
-% explicar maldição da dimensionalidade
 
 % K-means, DBSCAN, HDBSCAN aplicados a documentos
 
