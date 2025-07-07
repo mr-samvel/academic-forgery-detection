@@ -1,10 +1,10 @@
 \chapter{Trabalhos Correlatos}
 
-As próximas seções apresentam os mais recentes trabalhos com temática ou abordagem semelhante.
+As subseções seguintes apresentam os mais recentes trabalhos com temática ou abordagem semelhante.
 
 \section{Visão Geral}
 
-Durante a pesquisa por bibliografia que trata especificamente do problema da identificação de documentos falsificados, foram encontrados poucos resultados, sobretudo no âmbito acadêmico, já que a maioria dos trabalhos com temática similar aborda a classificação de fraudes -- dificuldade ilustrada pela tabela \ref{tab:bibliography}, que apresenta a bibliografia obtida que trata desse tema. É importante distinguir que, a detecção de fraudes foca em adulterações de arquivos originais, como a mudança de notas, datas ou nomes, enquanto a de documentos falsificados busca identificar aqueles completamente forjados desde sua criação, sem terem sido emitidos por instituições oficiais, por exemplo. Isso não significa que as ideias e técnicas não possam ser aproveitadas e adaptadas entre um contexto e outro, pelo contrário, este trabalho de conclusão de curso tem como referência métodos nos dois domínios.
+Durante a pesquisa por bibliografia que trata especificamente do problema da identificação de documentos falsificados, foram encontrados poucos resultados, sobretudo no âmbito acadêmico, já que a maioria dos trabalhos com temática similar aborda a classificação de fraudes -- dificuldade ilustrada pela Tabela \ref{tab:bibliography}, que apresenta a bibliografia obtida que trata desse tema. É importante distinguir que, a detecção de fraudes foca em adulterações de arquivos originais, como a mudança de notas, datas ou nomes, enquanto a de documentos falsificados busca identificar aqueles completamente forjados desde sua criação, sem terem sido emitidos por instituições oficiais, por exemplo. Isso não significa que as ideias e técnicas não possam ser aproveitadas e adaptadas entre um contexto e outro, pelo contrário, este trabalho de conclusão de curso tem como referência métodos nos dois domínios.
 
 \begin{table}[H]
     \caption{Bibliografia Pesquisada com Temas Abordados}
@@ -31,7 +31,7 @@ Nesta área, é predominante o emprego de estratégias de visão computacional, 
 
 Alternativamente, também existem propostas que abordam a prevenção de fraudes através de outras tecnologias, como \citeauthor*{hashdetection} \cite*{hashdetection}, que propõe o emprego de funções criptográficas para detectar modificações em documentos previamente submetidos, em que são armazenados os valores de \textit{hash} dos arquivos originais e legítimos, de forma que validações posteriores possam ser comparadas com o certificado primário. Contudo, essas abordagens preventivas não lidam com a classificação de documentos falsificados em sua concepção, representando uma lacuna pouco explorada, que o presente estudo visa preencher. Em sequência seguem os trabalhos que guiaram a concepção da estratégia da presente pesquisa.
 
-\section{``\protect\textit{Blockchain Smart Contract to Prevent Forgery of Degree Certificates: Artificial Intelligence Consensus Algorithm}``}
+\section{Integrando Aprendizado de Máquina à \protect\textit{Blockchain} para Prevenção e Detecção de Fraudes em Diplomas}
 
 Para o problema de prevenção de fraudes de diplomas, o artigo de \citeauthor*{blockchainforgery} \cite*{blockchainforgery} propõe uma \textit{blockchain} que incorpora algoritmos de aprendizado de máquina em diversas partes do processo de verificação de documentos e de consenso da rede. Além disso, de forma semelhante ao trabalho de \citeauthor*{hashdetection} \cite*{hashdetection}, quando um certificado é aceito, seu \textit{hash} é calculado e integrado ao seu registro na rede, permitindo sua verificabilidade, de forma que qualquer adulteração seja facilmente detectada.
 
@@ -64,7 +64,7 @@ Assim, cada nó da \textit{blockchain} executa esses algoritmos e vota, com base
 
 Por fim, quando um terceiro -- como empresa, universidade ou empregador -- deseja verificar a validade de um diploma já registrado, basta a verificação do \textit{hash} do documento já submetido.
 
-\section{``\protect\textit{Multimodal Document Image Classification}``}
+\section{Aplicando Análise Multimodal a Documentos}
 
 O trabalho de \citeauthor*{multimodal} \cite*{multimodal} não lida diretamente com a identificação de documentos falsificados ou fraudados, mas sim do problema geral de classificação de imagens. No entanto, a abordagem utilizada pelos autores é altamente relevante, pois mostra a eficácia da análise multimodal e pode ser aproveitada por este trabalho de conclusão de curso.
 
@@ -108,7 +108,7 @@ Em sequência, para realizar a classificação final, os autores utilizam uma ca
 
 Finalmente, o artigo compartilha as conclusões finais, onde explicita como essa abordagem superou consistentemente os métodos que utilizam apenas uma modalidade, com o método de adição elemento a elemento curiosamente alcançando os melhores resultados para a fusão multimodal, atingindo uma acurácia de 93,6\% no \textit{dataset} RVL-CDIP.
 
-\section{``\protect\textit{CERTIFICATE FRAUD VERIFICATION MODEL USING CLUSTERED-BASED CLASSIFICATION APPROACH}``}
+\section{Tratando a Autenticação de Documentos Acadêmicos Como um Problema de Agrupamento}
 
 O trabalho de \citeauthor*{clusterfraudverification} \cite*{clusterfraudverification} lida diretamente com o problema de verificação da autenticidade de certificados acadêmicos. Para isso, propõe uma abordagem baseada em \textit{clustering}, fundamentado na premissa de que documentos legítimos apresentam padrões consistentes de características que podem ser identificados através desses agrupamentos.
 
