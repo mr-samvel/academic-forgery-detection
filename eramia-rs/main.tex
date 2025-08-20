@@ -10,11 +10,17 @@
 
 \title{Detecção de Documentos Acadêmicos Falsificados: Uma Solução Baseada em Aprendizado de Máquina}
 
-\author{Samuel M. Ransolin\inst{1}, Giovana N. Inocêncio\inst{1}, Jean E. Martina\inst{1} }
+% \author{Samuel M. Ransolin\inst{1}, Giovana N. Inocêncio\inst{1}, Jean E. Martina\inst{1} }
 
-\address{Departamento de Informática e Estatística -- Centro Tecnológico \\
-  Universidade Federal do Santa Catarina (UFSC) -- Florianópolis, SC -- Brasil
-\email{samuel.moreira.ransolin@grad.ufsc.br, \{giovana.inocencio,jean.martina\}@ufsc.br}
+% \address{Departamento de Informática e Estatística -- Centro Tecnológico \\
+%   Universidade Federal do Santa Catarina (UFSC) -- Florianópolis, SC -- Brasil
+% \email{samuel.moreira.ransolin@grad.ufsc.br, \{giovana.inocencio,jean.martina\}@ufsc.br}
+% }
+
+\author{Autor(es) anônimo(s)\inst{1} }
+
+\address{Endereço anônimo
+\email{e-mail(s) anônimo(s)}
 }
 
 \begin{document} 
@@ -37,45 +43,45 @@
 
 \section{Problemática}
 
-Com o decorrer da última década, presencia-se no Brasil crescimento contínuo na emissão de diplomas de ensino superior, com cifras que chegam ao aumento de mais de 31\% de formandos desde 2013 \cite{inep:2023}. Embora isso revele um saldo extremamente positivo, também traz à tona desafios que precisam ser superados, entre eles e temática explorada neste trabalho, a melhoria nos processos de regulação, supervisão e avaliação dessas emissões por parte do Ministério da Educação do Brasil (MEC).
+Ao longo da última década, observa-se no Brasil um crescimento contínuo na emissão de diplomas de ensino superior, com um aumento superior a 31\% de formandos desde 2013 \cite{inep:2023}. Embora isso revele um saldo extremamente positivo, também traz à tona desafios que precisam ser superados, entre eles a temática explorada neste estudo: a melhoria nos processos de regulação, supervisão e avaliação dessas emissões por parte do Ministério da Educação do Brasil (MEC).
 
-Atualmente, a gerência, armazenamento e emissão de documentos acadêmicos, como diplomas e históricos escolares, é responsabilidade da instituição de ensino que os emite \cite{mec:1978}. Além disso, o processo, burocrático e não computadorizado, é suscetível a erros e até mesmo fraudes devido à ausência de transparência e redundância \cite{palma:2019}. Assim, essa falta de modernização deixa brechas que são conhecidas e utilizadas por agentes mal-intencionados, possibilitando a criação de falsas instituições, especializadas na venda de pacotes que incluem diversos certificados contrafeitos amparados em documentos oficiais adulterados, de forma a conferir aparência de legalidade a diplomas sem qualquer base acadêmica real \cite{dias:2022}.
+Atualmente, a gerência, armazenamento e emissão de documentos acadêmicos, como diplomas e históricos escolares, é responsabilidade da instituição de ensino que os emite \cite{mec:1978}. Além disso, o processo, burocrático e não computadorizado, é suscetível a erros e até mesmo fraudes devido à ausência de transparência e redundância \cite{palma:2019}. Assim, essa falta de modernização deixa brechas que são conhecidas e utilizadas por agentes mal-intencionados. Isso possibilita a criação de falsas instituições especializadas na venda de pacotes que incluem diversos certificados contrafeitos amparados em documentos oficiais adulterados, de forma a conferir aparência de legalidade a diplomas sem qualquer base acadêmica real \cite{dias:2022}.
 
-É neste cenário que o MEC, em parceria com o Ministério da Economia e diversas universidades federais, disponibiliza o sistema da Jornada do Estudante, que permite que discentes acompanhem suas trajetórias estudantis junto ao acesso a seus documentos acadêmicos pertinentes. Além disso, esse sistema também pode tornar-se uma plataforma conjunta para a emissão e registro destes certificados e até mesmo dados regulatórios das instituições de ensino superior \cite{rnp:2023}. Em acordo a essa iniciativa, o presente trabalho trata da implementação e validação de um protótipo de software que combina diferentes técnicas de aprendizado de máquina, capaz de identificar certificados falsos antes de sua inserção neste ambiente.
+É neste cenário que o MEC, em parceria com o Ministério da Economia e diversas universidades federais, disponibiliza o sistema da Jornada do Estudante, que permite que discentes acompanhem suas trajetórias estudantis junto ao acesso a seus documentos acadêmicos pertinentes. Além disso, esse sistema também tem o potencial de tornar-se uma plataforma conjunta para a emissão e registro destes certificados e até mesmo dados regulatórios das instituições de ensino superior \cite{rnp:2023}. Em consonância a essa iniciativa, o presente estudo trata da implementação e validação de um protótipo de software que combina diferentes técnicas de aprendizado de máquina, capaz de identificar certificados falsos antes de sua inserção nesse ambiente.
 
 \section{Estado da Arte}
 
-A pesquisa acadêmica sobre identificação de documentos falsificados é escassa, especialmente quando comparada aos estudos sobre detecção de fraudes. A detecção de fraudes foca em adulterações de arquivos originais, como a mudança de notas, datas ou nomes, enquanto a de documentos falsificados busca identificar aqueles completamente forjados desde sua criação, sem terem sido emitidos por instituições oficiais, por exemplo. Essa distinção é importante porque a caracterização e o conjunto de desafios práticos diferem. Entretanto, os métodos e técnicas utilizadas muitas vezes se sobrepõem e complementam entre sí, como é o caso deste trabalho, que aproveita referências em ambas as áreas e busca acrescentar às poucas soluções encontradas para a classificação de documentos falsificados em sua concepção.
+A pesquisa acadêmica sobre identificação de documentos falsificados é escassa, especialmente quando comparada aos estudos sobre detecção de fraudes. Enquanto a detecção de fraudes foca em adulterações de arquivos originais (como a mudança de notas, datas ou nomes), a de documentos falsificados busca identificar aqueles completamente forjados desde sua criação, sem terem sido emitidos por instituições oficiais. Essa distinção é importante porque a caracterização e o conjunto de desafios práticos diferem. Entretanto, os métodos e técnicas utilizadas muitas vezes se sobrepõem e complementam, como é o caso deste estudo, que aproveita referências em ambas as áreas e busca acrescentar às poucas soluções encontradas para a classificação de documentos falsificados em sua concepção.
 
 No domínio geral, predominam estratégias de visão computacional, como o artigo de \cite{inkcnn}, que utiliza autoencoders convolucionais sobre imagens hiperespectrais para identificar incompatibilidades entre tintas, ou como o trabalho de \cite{ocrgraph}, que introduziram outra perspectiva ao reformular o problema como comparação de grafos, em que obtém, via OCR, caixas delimitadoras de tamanho entre caracteres, utilizando-as para o treinamento de classificadores que detectam a manipulação de pixels. Alternativamente, também existem propostas, como a de \cite{hashdetection}, que utilizam funções hash e registros imutáveis, em blockchain, para verificação posterior.
 
-As abordagens preventivas mais robustas combinam múltiplas tecnologias para melhorar a detecção, destacam-se: o trabalho de \cite{blockchainforgery}, que integra blockchain e aprendizado de máquina para diplomas, onde hashes e máscaras geradas por redes (Mask R-CNN / Faster R-CNN) são registradas para verificação e consenso; o trabalho \cite{multimodal}, que demonstra a eficácia da análise multimodal de características textuais e visuais, combinando extração OCR, representações textuais (ULMFiT, FastText, n-grams) e codificações visuais (VGG-16) com diferentes estratégias de fusão; e o trabalho de \cite{clusterfraudverification}, que utiliza clustering sobre a extração de features visuais para a detecção de anomalias entre documentos.
+As abordagens preventivas mais robustas combinam múltiplas tecnologias para melhorar a detecção, destacam-se: o trabalho de \cite{blockchainforgery}, que integra blockchain e aprendizado de máquina para diplomas, onde hashes e máscaras geradas por redes (Mask R-CNN / Faster R-CNN) são registradas para verificação e consenso; o trabalho de \cite{multimodal}, que demonstra a eficácia da análise multimodal de características textuais e visuais, combinando extração OCR, representações textuais (ULMFiT, FastText, n-grams) e codificações visuais (VGG-16) com diferentes estratégias de fusão; e o trabalho de \cite{clusterfraudverification}, que utiliza clustering sobre a extração de features visuais para a detecção de anomalias entre documentos.
 
 \section{Metodologia}
 
-A metodologia proposta tem como base uma abordagem de aprendizado não-supervisionado e detecção de anomalias através da análise e extração multimodal. Busca-se rotular documentos com base em um nível de probabilidade de fraudulência, para isso, utilizam-se extrações de características visuais (como textura, fonte, espaçamento, selos e assinaturas), textuais (como padrões linguísticos, formatação de números e distribuição de termos) e estruturais (como posição de campos, margens e tabelas), que, combinadas, permitem o agrupamento dos documentos em clusters que representam padrões dominantes normais. Em sequência, modelos de detecção de anomalias são utilizados para a criação de detectores de referência a partir dos clusters, possibilitando a classificação de um novo documento submetido, em tempo real, através da avaliação do grau de desvio em relação aos padrões aprendidos -- quanto maior o desvio e escore de anomalia, maior a probabilidade de que o documento seja falsificado. Finalmente, essa pontuação é mapeada para categorias discretas de suspeita, fornecendo um nível de probabilidade de fraude para cada inserção.
+O objetivo do estudo é rotular documentos com base em um nível de probabilidade de falsificação. Para isso, é realizada a análise, extração e fusão multimodal de características visuais e textuais dos documentos, o que resulta em uma representação unificada e concisa de cada um. Com base no agrupamento dessas representações de acordo com suas similaridades, detectores de anomalias são utilizados para a classificação de novos documentos submetidos através da avaliação do grau de desvio em relação aos grupos identificados. Finalmente, essa pontuação é mapeada para categorias discretas de suspeita, fornecendo um nível de probabilidade de fraude para cada inserção.
 
 A escolha dessa abordagem tem por base a premissa de que documentos falsificados apresentam inconsistências sutis, tornando-os atípicos em relação aos padrões estabelecidos por documentos legítimos, sendo detectáveis através da análise multimodal das características extraídas de diversos contextos. Assim, o processo completo consiste em duas etapas: treinamento dos modelos de referência e classificação de novos documentos.
 
 \subsection{Treinamento dos Modelos de Referência}
 
-A fase de treinamento inicia com a coleta de certificações acadêmicas diversas, seguida do pré-processamento através de técnicas de normalização de imagens e aplicação de OCR. Com o dataset formado, é realizada a extração multimodal de características visuais, textuais e estruturais dos documentos. Em sequência, com base nos dados obtidos na etapa anterior, é realizada a identificação de padrões utilizando algoritmos de clustering para identificar grupos de documentos com comportamentos similares, estabelecendo padrões dominantes de normalidade. Por fim, detectores de anomalias são treinados para cada padrão descoberto, gerando modelos de referência normais.
+A fase de treinamento inicia com a coleta de certificações acadêmicas diversas fornecidas por uma instituição de ensino, seguida do pré-processamento através de técnicas de normalização de imagens e aplicação de OCR. Com o dataset formado, cada amostra passa pelo bloco de extração multimodal e, com base nas representações obtidas desse processamento, um algoritmo de clustering é utilizado para identificar grupos de documentos com comportamentos similares, estabelecendo padrões dominantes de normalidade. Por fim, detectores de anomalias são treinados para cada padrão descoberto, gerando modelos de referência normais.
+
+\subsubsection{Extração Multimodal}
+
+O módulo de extração multimodal captura e combina características independentes e, no contexto deste estudo, complementares. Essa abordagem opera, em paralelo, três diferentes subprocessos de aprendizado profundo para a extração de features:
+
+\begin{itemize}
+  \item Extração visual: utiliza métodos de visão computacional para extrair características ligadas a qualidade e consistência visual dos documentos. Inclui análise de textura, propriedades de fonte (espessura, tamanho, espaçamento), qualidade de assinaturas e selos e padrões de cores e contrastes;
+  \item Extração textual: utiliza processamento de linguagem natural para extrair características linguísticas. Analisa distribuição de termos e consistência na formatação de números e datas, por exemplo;
+  \item Extração estrutural: semelhante à extração visual, no entanto extrai características ligadas à organização espacial e estrutural dos documentos. Examina formatação de tabelas, alinhamentos, margens, espaçamentos e a disposição geral dos elementos no documento.
+\end{itemize}
+
+Por fim, as características extraídas são normalizadas, submetidas a técnicas de redução dimensional e fundidas, o que resulta em uma representação completa, unificada e compacta de cada documento. Isso permite que o sistema detecte tanto fraudes grosseiras, como a presença de um selo ou logotipo claramente apócrifo, quanto inconsistências sutis presentes em contrafações bem elaboradas, como divergências estatísticas entre termos utilizados ou variações microtipográficas.
 
 \subsection{Classificação de Novos Documentos}
 
-O fluxo de classificação de um novo documento reutiliza o mesmo pipeline de pré-processamento e extração multimodal para garantir consistência na representação. O resultado é comparado contra todos os modelos de referência normal. Cada modelo calcula um escore de anomalia baseado na distância, ou similaridade, em relação ao padrão estabelecido. Essas pontuações representam, por fim, a probabilidade de falsificação do registro. Finalmente, utilizam-se métricas de consenso para categorizar o arquivo, isto é, classificá-lo como normal ou suspeito a partir de determinado limiar de pontos.
-
-\subsection{Extração Multimodal}
-
-Em mais detalhes, o módulo de extração multimodal, passo chave e utilizado tanto no fluxo de treino quanto no fluxo de classificação de uma submissão, permite aproveitar o mesmo pipeline de processamento capturando e unindo características independentes e, no contexto deste trabalho, complementares. Essa abordagem opera, em paralelo, três diferentes subprocessos de extração de features:
-
-\begin{itemize}
-  \item Extração visual: extrai características ligadas ao layout, qualidade e consistência visual dos documentos. Inclui análise de textura, propriedades de fonte (espessura, tamanho, espaçamento), qualidade de assinaturas e selos, resolução de imagem, e padrões de cores e contrastes;
-  \item Extração textual: utiliza modelos de processamento de linguagem natural para extrair características linguísticas e de formatação. Analisa padrões textuais, distribuição de termos, consistência na formatação de números, datas e códigos, além de verificar a coerência semântica do conteúdo;
-  \item Extração estrutural: extrai características ligadas à organização espacial e estrutural dos documentos. Examina posicionamento de campos, formatação de tabelas, alinhamentos, margens, espaçamentos e a disposição geral dos elementos no documento.
-\end{itemize}
-
-Por fim, as características extraídas são normalizadas, submetidas a técnicas de redução dimensional e fundidas, o que resulta em uma representação completa, unificada e compacta de cada documento. Isso permite que o sistema detecte tanto fraudes grosseiras quanto inconsistências sutis presentes em contrafações bem elaboradas.
+O fluxo de classificação de um novo documento reutiliza o mesmo pipeline de pré-processamento e extração multimodal para garantir consistência na representação. O resultado é comparado contra todos os modelos de referência normal. Cada modelo calcula um escore de anomalia baseado na distância, ou similaridade, em relação aos padrões estabelecidos. Essas pontuações representam a probabilidade de falsificação do registro. Finalmente, utilizam-se métricas de consenso para categorizar o arquivo, isto é, classificá-lo como normal ou em níveis de suspeição a partir de limiares de pontos.
 
 \bibliographystyle{sbc}
 \bibliography{sbc-template}
